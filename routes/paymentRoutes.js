@@ -1,9 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const paymentsController = require('../controllers/paymentsController')
-// const elements = stripe.elements()
-// const elements = stripe.
-// const cardElement = elements.create('card')
+
 
 // router.get('/', (req, res) =>
 //     Gig.findAll()
@@ -13,7 +11,7 @@ const paymentsController = require('../controllers/paymentsController')
 //         })
 //         .catch((e) => console.log(e)),
 // )
-router.get('/payments', paymentsController.payment)
+router.get('/payments', paymentsController.payments)
 
 // router.get('/add', (req, res) => {
 //     const data = {
@@ -42,52 +40,6 @@ router.get('/cancel', (req, res) => {
     res.send({ data: 'Payment cancelled' })
 })
 
-router.post('/payment', async (req, res) => {
-    try {
-        const paymentIntent = await stripe.paymentIntents.create({
-            amount: 1099,
-            currency: 'usd',
-            payment_method: req.body.payment_method_id,
-            confirm: true,
-            capture_method: 'manual',
-        })
-        // console.log(paymentIntent)
-        let { id } = paymentIntent
-        console.log(id)
-        const intent = await stripe.paymentIntents.capture(id)
-         await stripe.paymentIntents.cancel(
-            'pi_3KCjuvKsrv8lDCbw0TMi4xbZ',
-        )
-        console.log(intent)
-        res.json({ data: intent })
-    } catch (e) {
-        console.log(e)
-    }
-    // CustomerPayment.create({
-    //     amount,
-    //     currency,
-    //     status,
-    // })
-    // const data = {
-    //     reference: 'Elasticsearch',
-    //     referenceId: 4647,
-    //     amount: '5000',
-    //     currency: 0,
-    //     status: 1,
-    // }
-    // let { reference, referenceId, amount, currency, status } = data
-    // Payment.create({
-    //     reference,
-    //     referenceId,
-    //     amount,
-    //     currency,
-    //     status,
-    // })
-    // .then(() => res.redirect('/gigs/payments'))
-    
-
-    // res.json({ data: paymentIntent })
-    // .catch((e) => console.log(e))
-})
+router.post('/pay', paymentsController.pay)
 
 module.exports = router

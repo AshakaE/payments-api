@@ -6,9 +6,7 @@ const app = express()
 const cors = require('cors')
 // const db = require('./queries')
 const port = 3000
-
 app.use(express.json())
-
 
 
 ;(async () => {
