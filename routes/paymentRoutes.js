@@ -1,8 +1,6 @@
 const express = require('express')
 const router = express.Router()
 const paymentsController = require('../controllers/paymentsController')
-
-
 // router.get('/', (req, res) =>
 //     Gig.findAll()
 //         .then((gigs) => {
@@ -11,7 +9,12 @@ const paymentsController = require('../controllers/paymentsController')
 //         })
 //         .catch((e) => console.log(e)),
 // )
-router.get('/payments', paymentsController.payments)
+router.post('/payments', paymentsController.pay) // make payments
+router.get('/payments/:id', paymentsController.payments) // get one payment
+router.get('/payments', paymentsController.payments) // add filter options
+router.patch('/payments/:id/charge', paymentsController.chargePayment)
+router.patch('/payments/:id/cancel', paymentsController.cancelPayment)
+router.patch('/payments/:id/refund', paymentsController.refundPayment)
 
 // router.get('/add', (req, res) => {
 //     const data = {
@@ -40,6 +43,5 @@ router.get('/cancel', (req, res) => {
     res.send({ data: 'Payment cancelled' })
 })
 
-router.post('/pay', paymentsController.pay)
 
 module.exports = router
