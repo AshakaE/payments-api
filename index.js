@@ -26,7 +26,8 @@ app.get('/', (request, response) => {
     // response.render
 })
 
-app.use('/api/v1', require('./routes/paymentRoutes'))
+app.use('/api/v1/payments', require('./routes/paymentRoutes'))
+app.use('/api/v1/users', require('./routes/userRoutes'))
 // app.get('/users', db.getUsers)
 // app.get('/users/:id', db.getUserById)
 // app.post('/users', db.createUser)

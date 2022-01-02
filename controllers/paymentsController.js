@@ -59,7 +59,7 @@ exports.pay = async (req, res, next) => {
     next()
 }
 
-exports.chargePayment = (req, res, next) => {
+exports.chargePayment = async (req, res, next) => {
     const { id } = req.body.pId
     const intent = await stripe.paymentIntents.capture(id)
     res.status(200).json({
@@ -68,18 +68,20 @@ exports.chargePayment = (req, res, next) => {
     next()
 }
 
-exports.cancelPayment = (req, res, next) => {
+exports.cancelPayment = async (req, res, next) => {
     const { id } = req.body.pId
-    const  cancel = await stripe.paymentIntents.cancel(id)
+    const cancel = await stripe.paymentIntents.cancel(id)
     res.status(200).json({
         data: cancel,
     })
     next()
 }
 
-exports.refundPayment = (req, res, next) => {
-    const refund = await stripe.paymentIntents.capture(id)
-    await stripe.paymentIntents.cancel(id)
+exports.refundPayment = async (req, res, next) => {
+    const { id } = req.body.pId
+    const refund = await stripe.refunds.create({
+        payment_intent: id
+    })
     res.status(200).json({
         data: refund,
     })

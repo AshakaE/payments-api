@@ -9,12 +9,12 @@ const paymentsController = require('../controllers/paymentsController')
 //         })
 //         .catch((e) => console.log(e)),
 // )
-router.post('/payments', paymentsController.pay) // make payments
-router.get('/payments/:id', paymentsController.payments) // get one payment
-router.get('/payments', paymentsController.payments) // add filter options
-router.patch('/payments/:id/charge', paymentsController.chargePayment)
-router.patch('/payments/:id/cancel', paymentsController.cancelPayment)
-router.patch('/payments/:id/refund', paymentsController.refundPayment)
+router.post('/', paymentsController.pay) // make payments
+router.get('/:id', paymentsController.payments) // get one payment
+router.get('', paymentsController.payments) // add filter options
+router.patch('/:id/charge', paymentsController.chargePayment)
+router.patch('/:id/cancel', paymentsController.cancelPayment)
+router.patch('/refund', paymentsController.refundPayment)
 
 // router.get('/add', (req, res) => {
 //     const data = {
